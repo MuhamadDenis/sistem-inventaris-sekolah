@@ -11,7 +11,12 @@ const options = {
     },
     servers: [
       {
+        url: 'https://proyek-inventaris-sekolah.vercel.app',
+        description: 'Production Server (Vercel)',
+      },
+      {
         url: 'http://localhost:5000',
+        description: 'Development Server (Lokal)',
       },
     ],
     components: {
@@ -47,7 +52,7 @@ const swaggerSpec = swaggerJSDoc(options);
 
 const swaggerDocs = (app) => {
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-  console.log('Swagger Docs tersedia di http://localhost:5000/api-docs');
+  console.log('Swagger Docs tersedia secara online dan lokal.');
 };
 
 module.exports = swaggerDocs;
