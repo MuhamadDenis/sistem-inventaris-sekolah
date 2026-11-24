@@ -9,6 +9,37 @@ const options = {
       version: '1.0.0',
       description: 'Dokumentasi Backend API untuk Sistem Inventaris Sekolah',
     },
+    // Menambahkan urutan dan deskripsi kategori (tags) secara global di sini
+    tags: [
+      {
+        name: 'Auth',
+        description: 'Manajemen Autentikasi Pengguna',
+      },
+      {
+        name: 'Categories',
+        description: 'Manajemen Kategori Barang Inventaris',
+      },
+      {
+        name: 'Item (Barang)',
+        description: 'Manajemen Data Barang Inventaris',
+      },
+      {
+        name: 'Loan (Peminjaman)',
+        description: 'Manajemen Peminjaman Barang',
+      },
+      {
+        name: 'Return (Pengembalian)',
+        description: 'Manajemen Pengembalian Barang',
+      },
+      {
+        name: 'Activity Log',
+        description: 'Pencatatan Aktivitas Sistem',
+      },
+      {
+        name: 'External Callback',
+        description: 'Integrasi Sistem Eksternal & Callback Aktivitas (API Key)',
+      },
+    ],
     servers: [
       {
         url: 'https://sistem-inventaris-sekolah-orpin.vercel.app',
@@ -22,9 +53,8 @@ const options = {
 const swaggerSpec = swaggerJSDoc(options);
 
 const swaggerDocs = (app) => {
-  // Opsi tambahan menggunakan CDN agar aset CSS/JS Swagger UI tidak 404/putih di Vercel
   const swaggerUiOptions = {
-    customSiteTitle: 'api docs - inventaris sekolah',
+    customSiteTitle: 'Api docs - inventaris sekolah',
     customCss: '.swagger-ui .topbar { display: none }',
     customJs: [
       'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-bundle.min.js',
