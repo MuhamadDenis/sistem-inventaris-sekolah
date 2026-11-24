@@ -20,19 +20,14 @@ const options = {
       },
     ],
   },
-  apis: ['./route/*.js', './controller/*.js'], // Sesuaikan dengan path rute/controller kamu
+  apis: ['./route/*.js', './controller/*.js'],
 };
 
 const swaggerSpec = swaggerJSDoc(options);
 
 const swaggerDocs = (app) => {
-  // Gunakan setup dan serve secara terpisah agar kompatibel dengan serverless
+  // Gunakan serve dan setup dalam satu jalur rute eksplisit
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-  
-  app.get('/api-docs.json', (req, res) => {
-    res.setHeader('Content-Type', 'application/json');
-    res.send(swaggerSpec);
-  });
 };
 
 module.exports = swaggerDocs;
