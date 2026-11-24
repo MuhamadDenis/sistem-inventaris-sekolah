@@ -14,10 +14,6 @@ const options = {
         url: 'https://sistem-inventaris-sekolah-orpin.vercel.app',
         description: 'Production Server (Vercel)',
       },
-      {
-        url: 'http://localhost:5000',
-        description: 'Development Server (Local)',
-      },
     ],
   },
   apis: ['./route/*.js', './controller/*.js'],
@@ -26,8 +22,20 @@ const options = {
 const swaggerSpec = swaggerJSDoc(options);
 
 const swaggerDocs = (app) => {
-  // Gunakan serve dan setup dalam satu jalur rute eksplisit
-  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+  // Tambahkan opsi kustom agar Swagger UI memuat aset dengan benar di Vercel
+  app.use(
+    '/api-docs',
+    swaggerUi.serve,
+    swaggerUi.setup(swaggerSpec, {
+      customSiteTitle: 'API Docs - Inventaris Sekolah',
+      customCss: '.swagger-ui .topbar { display: none }', // Menyembunyikan topbar bawaan swagger jika perlu
+    })
+  );
+
+  app.get('/api-docs.json', (req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    res.send(swaggerSpec);
+  });
 };
 
 module.exports = swaggerDocs;
