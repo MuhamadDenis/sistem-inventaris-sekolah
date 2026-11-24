@@ -5,54 +5,34 @@ const options = {
   definition: {
     openapi: '3.0.0',
     info: {
-      title: 'API Inventaris Sekolah',
+      title: 'API Sistem Inventaris Sekolah',
       version: '1.0.0',
-      description: 'Dokumentasi Backend Sistem Inventaris Sekolah (Production Stage 2)',
+      description: 'Dokumentasi Backend API untuk Sistem Inventaris Sekolah',
     },
     servers: [
       {
-        url: 'https://proyek-inventaris-sekolah.vercel.app',
+        url: 'https://sistem-inventaris-sekolah-orpin.vercel.app',
         description: 'Production Server (Vercel)',
       },
       {
         url: 'http://localhost:5000',
-        description: 'Development Server (Lokal)',
+        description: 'Development Server (Local)',
       },
     ],
-    components: {
-      securitySchemes: {
-        bearerAuth: {
-          type: 'http',
-          scheme: 'bearer',
-          bearerFormat: 'JWT',
-          description: 'Masukkan token JWT Anda dengan format: Bearer <token>',
-        },
-        ApiKeyAuth: {
-          type: 'apiKey',
-          in: 'header',
-          name: 'x-api-key',
-          description: 'Masukkan API Key untuk sistem eksternal',
-        },
-      },
-    },
   },
-  // Urutan file route disusun agar tampil berurutan dari Auth di atas hingga External Callback di bawah
-  apis: [
-    './route/authRoute.js',
-    './route/categoryRoute.js',
-    './route/itemRoute.js',
-    './route/loanRoute.js',
-    './route/returnRoute.js',
-    './route/activityLogRoute.js', // Pastikan file route activity log ini ada
-    './route/externalRoute.js'
-  ],
+  apis: ['./route/*.js', './controller/*.js'], // Sesuaikan dengan path rute/controller kamu
 };
 
 const swaggerSpec = swaggerJSDoc(options);
 
 const swaggerDocs = (app) => {
+  // Gunakan setup dan serve secara terpisah agar kompatibel dengan serverless
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-  console.log('Swagger Docs tersedia secara online dan lokal.');
+  
+  app.get('/api-docs.json', (req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    res.send(swaggerSpec);
+  });
 };
 
 module.exports = swaggerDocs;
