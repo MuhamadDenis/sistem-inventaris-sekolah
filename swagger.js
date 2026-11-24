@@ -22,15 +22,20 @@ const options = {
 const swaggerSpec = swaggerJSDoc(options);
 
 const swaggerDocs = (app) => {
-  // Tambahkan opsi kustom agar Swagger UI memuat aset dengan benar di Vercel
-  app.use(
-    '/api-docs',
-    swaggerUi.serve,
-    swaggerUi.setup(swaggerSpec, {
-      customSiteTitle: 'API Docs - Inventaris Sekolah',
-      customCss: '.swagger-ui .topbar { display: none }', // Menyembunyikan topbar bawaan swagger jika perlu
-    })
-  );
+  // Opsi tambahan menggunakan CDN agar aset CSS/JS Swagger UI tidak 404/putih di Vercel
+  const swaggerUiOptions = {
+    customSiteTitle: 'api docs - inventaris sekolah',
+    customCss: '.swagger-ui .topbar { display: none }',
+    customJs: [
+      'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-bundle.min.js',
+      'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-standalone-preset.min.js',
+    ],
+    customCssUrl: [
+      'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui.min.css',
+    ],
+  };
+
+  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, swaggerUiOptions));
 
   app.get('/api-docs.json', (req, res) => {
     res.setHeader('Content-Type', 'application/json');
