@@ -9,36 +9,15 @@ const options = {
       version: '1.0.0',
       description: 'Dokumentasi Backend API untuk Sistem Inventaris Sekolah',
     },
-    // Menambahkan urutan dan deskripsi kategori (tags) secara global di sini
+    // Urutan tag secara global di sini memastikan Swagger UI mengurutkannya dengan benar
     tags: [
-      {
-        name: 'Auth',
-        description: 'Manajemen Autentikasi Pengguna',
-      },
-      {
-        name: 'Categories',
-        description: 'Manajemen Kategori Barang Inventaris',
-      },
-      {
-        name: 'Item (Barang)',
-        description: 'Manajemen Data Barang Inventaris',
-      },
-      {
-        name: 'Loan (Peminjaman)',
-        description: 'Manajemen Peminjaman Barang',
-      },
-      {
-        name: 'Return (Pengembalian)',
-        description: 'Manajemen Pengembalian Barang',
-      },
-      {
-        name: 'Activity Log',
-        description: 'Pencatatan Aktivitas Sistem',
-      },
-      {
-        name: 'External Callback',
-        description: 'Integrasi Sistem Eksternal & Callback Aktivitas (API Key)',
-      },
+      { name: 'Auth', description: 'Manajemen Autentikasi Pengguna' },
+      { name: 'Categories', description: 'Manajemen Kategori Barang Inventaris' },
+      { name: 'Item (Barang)', description: 'Manajemen Data Barang Inventaris' },
+      { name: 'Loan (Peminjaman)', description: 'Manajemen Peminjaman Barang' },
+      { name: 'Return (Pengembalian)', description: 'Manajemen Pengembalian Barang' },
+      { name: 'Activity Log', description: 'Pencatatan Aktivitas Sistem' },
+      { name: 'External Callback', description: 'Integrasi Sistem Eksternal & Callback Aktivitas (API Key)' },
     ],
     servers: [
       {
